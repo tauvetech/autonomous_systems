@@ -1,0 +1,22 @@
+diff --git a/orocos-yarp_transport/Makefile b/orocos-yarp_transport/Makefile
+index 487aded..07c931b 100644
+--- a/orocos-yarp_transport/Makefile
++++ b/orocos-yarp_transport/Makefile
+@@ -19,7 +19,7 @@ HOMEPAGE=		https://github.com/adegroote/orocos-yarp-transport
+ DEPEND_ABI.orocos-rtt =	orocos-rtt>=2.5
+ DEPEND_ABI.yarp = yarp>=2.2
+ 
+-CMAKE_ARGS+=		-DOROCOS-RTT_DIR=${PREFIX.orocos-rtt}/lib/cmake/orocos-rtt
++#CMAKE_ARGS+=		-DOROCOS-RTT_DIR=${PREFIX.orocos-rtt}/lib/cmake/orocos-rtt
+ 
+ PKG_SUPPORTED_OPTIONS+=	doc
+ PKG_SUGGESTED_OPTIONS+=	doc
+@@ -32,7 +32,7 @@ define PKG_OPTION_UNSET.doc
+   CMAKE_ARGS+=		-DBUILD_DOC=OFF
+ endef
+ 
+-include ../../middleware/orocos-rtt/depend.mk
++#include ../../middleware/orocos-rtt/depend.mk
+ include ../../middleware/yarp/depend.mk
+ include ../../mk/sysdep/cmake.mk
+ include ../../mk/language/c++.mk

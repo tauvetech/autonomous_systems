@@ -1,0 +1,18 @@
+diff --git a/orocos-dot_service/Makefile b/orocos-dot_service/Makefile
+index 578d600..2f575cc 100644
+--- a/orocos-dot_service/Makefile
++++ b/orocos-dot_service/Makefile
+@@ -21,11 +21,11 @@ DEPEND_ABI.boost-libs=	boost-libs>=1.46.1
+ DEPEND_ABI.boost-headers=boost-headers>=1.46.1
+ 
+ CMAKE_ARGS+=		-DGRAPHVIZ_INCLUDE_DIR=${PREFIX.graphviz}/include
+-CMAKE_ARGS+=		-DOROCOS-RTT_DIR=${PREFIX.orocos-rtt}/lib/cmake/orocos-rtt
++#CMAKE_ARGS+=		-DOROCOS-RTT_DIR=${PREFIX.orocos-rtt}/lib/cmake/orocos-rtt
+ CMAKE_ARGS+=		-DBOOST_INCLUDEDIR=${PREFIX.boost-headers}/include
+ CMAKE_ARGS+=		-DBOOST_LIBDIR=${PREFIX.boost-libs}/include
+ 
+-include ../../middleware/orocos-rtt/depend.mk
++#include ../../middleware/orocos-rtt/depend.mk
+ include ../../devel/boost-headers/depend.mk
+ include ../../devel/boost-libs/depend.mk
+ include ../../mk/sysdep/graphviz.mk
