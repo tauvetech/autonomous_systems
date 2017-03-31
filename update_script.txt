@@ -1,0 +1,59 @@
+#update repo for qt57 to qt571
+
+echo "====================================================="
+echo "update gazebo to Gazebo7 for px4 firmware simulation"
+echo "====================================================="
+sudo apt-get update
+sudo apt-get remove -y ros-indigo-gazebo*
+sudo apt-get install -y wget python-jinja2 protobuf-compiler libeigen3-dev
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install --force-yes -y ros-indigo-gazebo7-*
+
+echo "============================================================="
+echo "install px4 firmware for simulation with Firmware in the loop"
+echo "============================================================="
+cd $WORK_DIR
+git clone https://github.com/PX4/Firmware.git
+wget https://cmake.org/files/v3.8/cmake-3.8.0-rc2-Linux-x86_64.sh
+sudo chmod +x cmake-3.8.0-rc2-Linux-x86_64.sh
+./cmake-3.8.0-rc2-Linux-x86_64.sh
+export PATH=~/sources/cmake-3.8.0-rc2-Linux-x86_64/bin/:$PATH
+cd Firmware
+make posix_sitl_default gazebo
+sudo apt-get install ros-indigo-mavros*
+
+#=================================================================
+# copy by hand in ~/.bashrc! pb with script! ;-(
+#=================================================================
+echo "#source ros package of px4 Firmware:" >> ~/.bashrc
+echo "export FIRMWARE_PX4_PATH=$WORK_DIR/Firmware" >> ~/.bashrc
+echo ". $FIRMWARE_PX4_PATH/Tools/setup_gazebo.bash $FIRMWARE_PX4_PATH $FIRMWARE_PX4_PATH/build_posix_sitl_default" >> ~/.bashrc
+echo "export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$FIRMWARE_PX4_PATH" >> ~/.bashrc
+echo "export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$FIRMWARE_PX4_PATH/Tools/sitl_gazebo" >> ~/.bashrc
+#=================================================================
+
+echo "==================================================="
+echo "install imav usefull files for work with simulation"
+echo "==================================================="
+cd ~/catkin_ws/src
+git clone https://sourceforge.isae.fr/git/imav2017.imav_usefull_files
+cd ..
+catkin_make
+
+echo "================="
+echo "install rqt_smach"
+echo "================="
+cd ~/catkin_ws/src
+git clone https://github.com/jbohren/executive_smach.git
+git clone https://github.com/jbohren/executive_smach_visualization.git
+git clone https://github.com/jbohren/xdot.git
+cd ..
+catkin_make
+
+echo "==================================="
+echo "install spyder (for python editing)"
+echo "==================================="
+echo "export USER=root" >> ~/.bashrc
+sudo apt-get install spyder
