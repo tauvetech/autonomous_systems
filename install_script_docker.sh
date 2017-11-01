@@ -84,7 +84,7 @@ echo "configure and install opencv"
 echo "================================="
 cd $ROBOTPKG_DIR/image/opencv/
 make update
-#!!on en est la !!!
+
 echo "================================="
 echo "configure and install yarp"
 echo "================================="
